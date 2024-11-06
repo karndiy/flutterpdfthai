@@ -12,6 +12,9 @@ class PdfModel {
     final directory = Directory.current;
     final filePath = '${directory.path}/pdf/saved_pdf.pdf';
 
+    // Define the page size (80mm x 80mm)
+   // final pageFormat = pw.PdfPageFormat(80 * PdfPageFormat.mm, 80 * PdfPageFormat.mm);
+
     // Load custom font (THSarabunNew)
     final fontData = await rootBundle.load('assets/fonts/THSarabunNew.ttf');
     final ttf = pw.Font.ttf(fontData);
@@ -25,6 +28,7 @@ class PdfModel {
     print(filePath);
     pdf.addPage(
       pw.Page(
+        //pageFormat: pageFormat, // Set the custom page size
         build: (pw.Context context) {
           return pw.Center(
             child: pw.Text(text, style: pw.TextStyle(font: ttf,fontSize: 24)),

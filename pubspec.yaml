@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  pdf: ^3.8.1
+  pdf: ^3.6.0  # Ensure this is the latest or a stable version
   printing: ^5.13.4  # Or check for the latest version
   path_provider: ^2.0.14
   file_picker: ^5.0.0
