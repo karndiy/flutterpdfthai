@@ -5,6 +5,7 @@ class PdfView extends StatelessWidget {
   final Function(String) onTextChanged;
   final Function() onPrintPressed;
   final Function() onPreviewPressed;
+  final String? pdfPath;
 
   const PdfView({
     Key? key,
@@ -12,6 +13,7 @@ class PdfView extends StatelessWidget {
     required this.onTextChanged,
     required this.onPrintPressed,
     required this.onPreviewPressed,
+    this.pdfPath,
   }) : super(key: key);
 
   @override
@@ -37,15 +39,13 @@ class PdfView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title or description (Fixed with titleLarge)
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Text(
                 'Enter the text below to save as a PDF:',
-                style: Theme.of(context).textTheme.titleLarge, // Fixed to titleLarge
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
-            // Text input field inside a Card for material design
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -55,7 +55,7 @@ class PdfView extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                   controller: textController,
-                  maxLines: null, // allows multiple lines
+                  maxLines: null,
                   textInputAction: TextInputAction.done,
                   decoration: const InputDecoration(
                     hintText: 'Enter text to save as PDF...',
@@ -67,7 +67,13 @@ class PdfView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            // Buttons for Print and Preview
+            // Display PDF Path
+            if (pdfPath != null) // Only show if pdfPath is available
+              Text(
+                'PDF saved at: $pdfPath',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -75,25 +81,11 @@ class PdfView extends StatelessWidget {
                   onPressed: onPrintPressed,
                   icon: const Icon(Icons.print),
                   label: const Text('Print'),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(120, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: onPreviewPressed,
                   icon: const Icon(Icons.preview),
                   label: const Text('Preview'),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(120, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  ),
                 ),
               ],
             ),
